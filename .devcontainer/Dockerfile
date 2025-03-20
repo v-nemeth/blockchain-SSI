@@ -7,3 +7,4 @@ RUN sudo apt-get update && \
     libpq-dev \
     postgresql-client \
     iputils-ping
+RUN sudo apt-get install -y autoconf automake libtool

@@ -7,3 +7,8 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+Corporation.create(
+  title: "TrustedCorp A/S",
+  public_key: '0x708C98D293F99F3cF64B802424652690FEf176C0',
+  private_key: ''
+)

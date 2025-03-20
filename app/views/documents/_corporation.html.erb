@@ -1,0 +1,47 @@
+<% if @current_corp.present? %>
+  <div class="mb-6 bg-white rounded-lg shadow p-4 border border-gray-200">
+    <div class="flex items-center justify-between mb-2">
+      <h2 class="text-lg font-semibold text-gray-900">
+        Current Corporation: <%= @current_corp.title %>
+      </h2>
+      <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+        Active
+      </span>
+    </div>
+    
+    <div class="mt-3 space-y-3">
+      <div>
+        <h3 class="text-sm font-medium text-gray-500">Public Key</h3>
+        <div class="mt-1 relative">
+          <pre class="text-xs bg-gray-50 p-2 rounded font-mono overflow-x-auto"><%= @current_corp.public_key %></pre>
+          <button onclick="navigator.clipboard.writeText('<%= @current_corp.public_key %>')" class="absolute top-2 right-2 text-blue-500 hover:text-blue-700">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
+            </svg>
+          </button>
+        </div>
+      </div>
+      
+      <div>
+        <h3 class="text-sm font-medium text-gray-500">Private Key</h3>
+        <div class="mt-1 relative">
+          <pre class="text-xs bg-gray-50 p-2 rounded font-mono overflow-x-auto"><%= @current_corp.private_key %></pre>
+          <button onclick="navigator.clipboard.writeText('<%= @current_corp.private_key %>')" class="absolute top-2 right-2 text-blue-500 hover:text-blue-700">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+<% else %>
+  <div class="mb-6 bg-yellow-50 rounded-lg p-4 border border-yellow-200">
+    <div class="flex items-center">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-yellow-600 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+      </svg>
+      <p class="text-sm font-medium text-yellow-700">No corporation selected</p>
+    </div>
+  </div>
+<% end %>
