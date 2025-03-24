@@ -42,6 +42,29 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_20_171237) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "certificates", force: :cascade do |t|
+    t.string "chain_id"
+    t.string "from_address"
+    t.string "to_address"
+    t.string "tx_hash"
+    t.string "block_number"
+    t.string "data"
+    t.string "value"
+    t.string "gas_limit"
+    t.string "gas_price"
+    t.string "max_fee_per_gas"
+    t.string "max_priority_fee_per_gas"
+    t.string "gas_used"
+    t.integer "status"
+    t.bigint "document_id"
+    t.bigint "corporation_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["corporation_id"], name: "index_certificates_on_corporation_id"
+    t.index ["document_id"], name: "index_certificates_on_document_id"
+    t.index ["tx_hash"], name: "index_certificates_on_tx_hash"
+  end
+
   create_table "corporations", force: :cascade do |t|
     t.string "title"
     t.string "private_key", limit: 4096
@@ -57,30 +80,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_20_171237) do
     t.string "sha256"
   end
 
-  create_table "transactions", force: :cascade do |t|
-    t.string "chain_id"
-    t.string "from_address", null: false
-    t.string "to_address", null: false
-    t.string "tx_hash"
-    t.string "block_number"
-    t.string "data"
-    t.string "value"
-    t.string "gas_limit"
-    t.string "gas_price"
-    t.string "max_fee_per_gas"
-    t.string "max_priority_fee_per_gas"
-    t.string "gas_used"
-    t.integer "status"
-    t.bigint "document_id"
-    t.bigint "corporation_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["corporation_id"], name: "index_transactions_on_corporation_id"
-    t.index ["document_id"], name: "index_transactions_on_document_id"
-    t.index ["tx_hash"], name: "index_transactions_on_tx_hash"
-  end
-
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "transactions", "documents"
+  add_foreign_key "certificates", "documents"
 end

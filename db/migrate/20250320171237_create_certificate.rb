@@ -1,15 +1,15 @@
-class CreateTransaction < ActiveRecord::Migration[8.0]
+class CreateCertificate < ActiveRecord::Migration[8.0]
   def change
-    create_table :transactions do |t|
+    create_table :certificates do |t|
       t.string :chain_id
-      t.string :from_address, null: false
-      t.string :to_address, null: false
+      t.string :from_address
+      t.string :to_address
 
       t.string :tx_hash, index: true
       t.string :block_number
 
       t.string :data
-      t.string :value\
+      t.string :value
 
       t.string :gas_limit
       t.string :gas_price

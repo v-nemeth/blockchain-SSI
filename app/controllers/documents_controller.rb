@@ -4,7 +4,6 @@ class DocumentsController < ApplicationController
   # GET /documents or /documents.json
   def index
     @documents = Document.all
-    @current_corp = Corporation.first
   end
 
   # GET /documents/1 or /documents/1.json

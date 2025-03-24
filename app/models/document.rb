@@ -1,4 +1,6 @@
 class Document < ApplicationRecord
+  has_one :certificate, class_name: "Documents::Certificate"
+
   has_one_attached :pdf
 
   after_save_commit :calculate_sha256, if: -> { pdf.attached? }
