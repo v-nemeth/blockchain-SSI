@@ -3,6 +3,7 @@ module Documents
     belongs_to :document
     belongs_to :corporation
 
+    enum :status, { failed: -1, in_progress: 1, signed: 2 }
 
 
     def issue_certificate
@@ -31,7 +32,7 @@ module Documents
         params: [ "0x" + tx.hex ],  # Make sure to add "0x" prefix
         id: Time.now.to_i
       }
-      debugger
+
       response = client.send_request(payload.to_json)
       result = JSON.parse(response)
       tx_hash = result["result"]
@@ -46,6 +47,22 @@ module Documents
         max_priority_fee_per_gas: tx.max_priority_fee_per_gas.to_s,
         status: 1
       )
+    end
+
+    def fetch_status
+      client = Eth::Client.create("https://ethereum-sepolia-rpc.publicnode.com")
+
+      payload = {
+        jsonrpc: "2.0",
+        method: "eth_getTransactionReceipt",
+        params: [ tx_hash ],  # Make sure to add "0x" prefix
+        id: Time.now.to_i
+      }
+      response = client.send_request(payload.to_json)
+      result = JSON.parse(response)["result"]["status"].hex
+
+      update(status: 2) if result == 1
+      update(status: -1) if result == 0
     end
   end
 end
