@@ -8,7 +8,7 @@
   <div class="mt-2 flex items-center">
     <span class="font-medium text-gray-700 mr-2">Status:</span>
     <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium <%= document.signed? ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800' %>">
-      <%= document.signed? ? "Signed" : "Unsigned" %>
+      <%= document.certificate.present? ? document.certificate.status : "Unsigned" %>
     </span>
   </div>
 
@@ -28,5 +28,17 @@
       <span class="font-medium text-gray-700 mr-2">SHA256:</span>
       <span class="text-xs text-gray-500 font-mono break-all"><%= document.sha256 %></span>
     </div>
+  <% end %>
+
+  <% if document.certificate.present? %>
+    <div class="mt-2">
+      <span class="font-medium text-gray-700 mr-2">Transaction: </span>
+      <span class="text-xs text-gray-500 font-mono break-all"><%= document.certificate.tx_hash %></span>
+    </div>
+    <div class="mt-2">
+      <span class="font-medium text-gray-700 mr-2">Certificate data: </span>
+      <span class="text-xs text-gray-500 font-mono break-all"><%= document.certificate.data %></span>
+    </div>
+    
   <% end %>
 </div>
